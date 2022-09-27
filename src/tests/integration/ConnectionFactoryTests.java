@@ -29,8 +29,7 @@ public class ConnectionFactoryTests {
     @Test
     @DisplayName("Connect to database")
     public void connect() throws SQLException {
-        ConnectionFactory factory = new ConnectionFactory();
-        try (Connection conn = factory.connect()) {
+        try (Connection conn = ConnectionFactory.instance.connect()) {
             Assert.assertFalse(conn.isClosed());
         }
     }
@@ -40,9 +39,10 @@ public class ConnectionFactoryTests {
      */
     @Test
     @DisplayName("Create database")
-    public void createDatabase() {
+    public void createDatabase() throws SQLException {
         File database = new File("./sqlite/db/");
-        new ConnectionFactory();
-        Assert.assertTrue(database.exists());
+        try (Connection conn = ConnectionFactory.instance.connect()) {
+            Assert.assertTrue(database.exists());
+        }
     }
 }

@@ -22,9 +22,14 @@ public class ConnectionFactory implements IConnectionFactory {
     private final String url;
 
     /**
+     * Instance of the Connection Factory
+     */
+    public static ConnectionFactory instance = new ConnectionFactory();
+
+    /**
      * Connection Factory
      */
-    public ConnectionFactory() {
+    private ConnectionFactory() {
         url = generateDatabase();
     }
 
